@@ -34,8 +34,33 @@
  *
  */
 
-/**TODO */
-var lengthOfLongestSubstring = function (s) {};
+var lengthOfLongestSubstring = function (s) {
+  /**定义临时变量,最大长度 */
+  let temp = "",
+    maxLength = 0;
+
+  for (let i = 0, len = s.length; i < len; i++) {
+    /**查找临时变量是否存在当前循环的字符 */
+    const index = temp.indexOf(s[i]);
+    /**
+     * 这里使用了按位取反
+     * 若是-1,~-1 === 0, 可以根据这个判断是否存在该字符
+     * url: https://segmentfault.com/q/1010000005697515
+     */
+    if (~index) {
+      /**
+       * 截取匹配到的字符
+       */
+      temp = temp.substring(index + 1);
+    }
+    temp += s[i];
+    /**判断是否当前最大长度 */
+    if (temp.length > maxLength) {
+      maxLength = temp.length;
+    }
+  }
+  return maxLength;
+};
 
 /**Debug */
 console.log(lengthOfLongestSubstring("abcabcbb"));
