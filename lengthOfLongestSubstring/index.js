@@ -1,4 +1,8 @@
 /**
+ * url: https://segmentfault.com/a/1190000018624924?utm_source=tag-newest
+ */
+
+/**
  *  无重复字符的最长子串
  *
  *  题目描述
@@ -35,7 +39,3 @@ var lengthOfLongestSubstring = function (s) {};
 
 /**Debug */
 console.log(lengthOfLongestSubstring("abcabcbb"));
-
-/**
- * Url: https://segmentfault.com/a/1190000018624924?utm_source=tag-newest
- */
