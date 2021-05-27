@@ -32,6 +32,12 @@
  *  遍历数组，当发现target - nums[i] 在哈希表中，说明找到了目标值
  */
 
+/**
+ * Map方法处理
+ * @param {Number[]} nums 整数数组
+ * @param {Number} target 目标值
+ * @returns {Number[]} 下标数组
+ */
 const twoSum = function (nums, target) {
   /**定义 哈希表 */
   const map = new Map();
@@ -48,3 +54,50 @@ const twoSum = function (nums, target) {
 
   return [];
 };
+
+/**
+ * 双循环
+ * @param {Number[]} nums 整数数组
+ * @param {Number} target 目标值
+ * @returns {Number[]} 下标数组
+ */
+const twoSum = function (nums, target) {
+  /**第一层循环 */
+  for (let i = 0, len = nums.length - 1; i < len; i++) {
+    /**第二层循环 从i的第二个值开始 */
+    for (let j = i + 1, len = nums.length; i < len; j++) {
+      /**两个值符合相加符合target,跳出循环 */
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return [];
+};
+
+/**
+ * 单循环
+ * @param {Number[]} nums 整数数组
+ * @param {Number} target 目标值
+ * @returns {Number[]} 下标数组
+ */
+const twoSum = function (nums, target) {
+  let result = {};
+
+  for (let i = 0, len = nums.length; i < len; i++) {
+    /**循环定义数组每个值 */
+    let a = nums[i];
+    /**定义目标差值 */
+    let b = target - a;
+    /**判断 如果数组某个值在对象中得到匹配， 返回该值的索引 以及 目标对象的值 */
+    if (result[a] !== undefined) {
+      return [result[a], i];
+    } else {
+      /**将目标差值放置对象中 */
+      result[b] = i;
+    }
+  }
+  return [];
+};
+
+console.log(twoSum([2, 7, 11, 15], 9));
