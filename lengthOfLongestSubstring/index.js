@@ -32,3 +32,6 @@
 
 /**TODO */
 var lengthOfLongestSubstring = function (s) {};
+
+/**Debug */
+console.log(lengthOfLongestSubstring("abcabcbb"));
