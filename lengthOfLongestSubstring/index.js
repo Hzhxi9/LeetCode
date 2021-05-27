@@ -35,3 +35,7 @@ var lengthOfLongestSubstring = function (s) {};
 
 /**Debug */
 console.log(lengthOfLongestSubstring("abcabcbb"));
+
+/**
+ * Url: https://segmentfault.com/a/1190000018624924?utm_source=tag-newest
+ */
