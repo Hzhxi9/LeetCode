@@ -17,4 +17,22 @@
  */
 function firstNotRepeatingChar(s) {
   if (!s || s.length > 10000) return;
+  const temp = {};
+  for (let i = 0, len = s.length; i < len; i++) {
+    if (temp[s[i]] !== undefined) {
+      temp[s[i]] += 1;
+    } else {
+      temp[s[i]] = 1;
+    }
+  }
+
+  for(const key in temp){
+    console.log(temp[key],'==temp  ')
+    if(temp[key] === 1){
+      return [key, temp[key]]
+    }
+  }
+  return -1
 }
+
+console.log(firstNotRepeatingChar('sss'))
