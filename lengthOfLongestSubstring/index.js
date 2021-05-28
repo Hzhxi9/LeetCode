@@ -34,13 +34,17 @@
  *
  */
 
+/**
+ *
+ * @param {String} s
+ * @returns {Number}
+ */
 const lengthOfLongestSubstring = function (s) {
   /**定义临时变量,最大长度 */
   let temp = "",
     maxLength = 0;
 
   for (let i = 0, len = s.length; i < len; i++) {
-    /**查找临时变量是否存在当前循环的字符 */
     const index = temp.indexOf(s[i]);
     /**
      * 这里使用了按位取反
@@ -62,19 +66,33 @@ const lengthOfLongestSubstring = function (s) {
   return maxLength;
 };
 
+/**
+ *
+ * @param {String} s
+ * @returns {Number}
+ */
 const lengthOfLongestSubstring = function (s) {
+  /**
+   * 定义两个指针来遍历字符串
+   * begin 指向当前字符串头部
+   * end   指向当前字符串的下一位
+   **/
   let maxLength = 0,
     begin = 0,
     end = 1;
   while (end <= s.length) {
+    /** */
     const index = s.slice(begin, end - 1).indexOf(s[end - 1]);
     if (~index) {
+      /**找到相同字符的，begin指向下一个位置 */
       begin += index + 1;
     } else {
+      /**没有匹配的，则赋值长度 */
       end - begin > maxLength ? (maxLength = end - begin) : null;
     }
     end++;
   }
+
   return maxLength;
 };
 
