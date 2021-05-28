@@ -20,7 +20,7 @@
  *  解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
  *
  *  示例3:
- *  输入: s = "pwkew"
+ *  输入: s = "pwwkew"
  *  输出: 3
  *  解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。请注意，你的答案必须是 子串 的长度，"pwke"是一个子序列，不是子串。
  *
@@ -34,7 +34,7 @@
  *
  */
 
-var lengthOfLongestSubstring = function (s) {
+const lengthOfLongestSubstring = function (s) {
   /**定义临时变量,最大长度 */
   let temp = "",
     maxLength = 0;
@@ -44,7 +44,7 @@ var lengthOfLongestSubstring = function (s) {
     const index = temp.indexOf(s[i]);
     /**
      * 这里使用了按位取反
-     * 若是-1,~-1 === 0, 可以根据这个判断是否存在该字符
+     * ~-1 === 0, 可以根据这个判断是否存在该字符
      * url: https://segmentfault.com/q/1010000005697515
      */
     if (~index) {
@@ -58,6 +58,22 @@ var lengthOfLongestSubstring = function (s) {
     if (temp.length > maxLength) {
       maxLength = temp.length;
     }
+  }
+  return maxLength;
+};
+
+const lengthOfLongestSubstring = function (s) {
+  let maxLength = 0,
+    begin = 0,
+    end = 1;
+  while (end <= s.length) {
+    const index = s.slice(begin, end - 1).indexOf(s[end - 1]);
+    if (~index) {
+      begin += index + 1;
+    } else {
+      end - begin > maxLength ? (maxLength = end - begin) : null;
+    }
+    end++;
   }
   return maxLength;
 };
