@@ -64,6 +64,7 @@ const twoSum = function (nums, target) {
 const twoSum = function (nums, target) {
   /**第一层循环 */
   for (let i = 0, len = nums.length - 1; i < len; i++) {
+    c;
     /**第二层循环 从i的第二个值开始 */
     for (let j = i + 1, len = nums.length; i < len; j++) {
       /**两个值符合相加符合target,跳出循环 */
@@ -98,6 +99,25 @@ const twoSum = function (nums, target) {
     }
   }
   return [];
+};
+
+/**
+ * 数组Reduce处理
+ * @param {Number}} nums
+ * @param {Number} target
+ * @returns {Number[]}
+ */
+const twoSum = function (nums, target) {
+  const result = {};
+  return nums.reduce((acc, cur, index) => {
+    const b = target - cur;
+    if (result[cur] !== undefined) {
+      acc.push(result[cur], index);
+    } else {
+      result[b] = index;
+    }
+    return acc;
+  }, []);
 };
 
 console.log(twoSum([2, 7, 11, 15], 9));
