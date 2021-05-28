@@ -38,4 +38,23 @@ function firstNotRepeatingChar(s) {
   return -1;
 }
 
+/**
+ *
+ */
+const firstNotRepeatingChar = function (s) {
+  if (!s || s.length > 10000) return -1;
+  const result = s.split("").reduce((acc, cur) => {
+    if (acc[cur] !== undefined) {
+      acc[cur] += 1;
+    } else {
+      acc[cur] = 1;
+    }
+    return acc;
+  }, {});
+  Object.keys(result).forEach((key) => {
+    console.log(key)
+  });
+  return -1
+};
+
 console.log(firstNotRepeatingChar("sssb"));
