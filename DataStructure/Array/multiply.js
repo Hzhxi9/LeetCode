@@ -11,8 +11,29 @@
  */
 
 /**
- * 
+ *
  * @param {number[]} nums
- * @returns {number[]} 
+ * @returns {number[]}
  */
-const multiply = function (nums) {};
+const multiply = function (nums) {
+  const result = [];
+
+  /**从左边0开始累乘 */
+  for (let i = 0, len = nums.length, p = 1; i < len; i++) {
+    /**左边 p的结果赋值给result[i] */
+    result[i] = p;
+    /**p 在此次循序继续累乘 */
+    p *= nums[i];
+  }
+
+  /**从右边最后一位开始累乘 */
+  for (let j = nums.length - 1, p = 1; j >= 0; j--) {
+    /**左边result[j]有值， 直接累乘p */
+    result[j] *= p;
+    p *= nums[j];
+  }
+
+  return result;
+};
+
+console.log(multiply([2, 3, 4, 5]));
