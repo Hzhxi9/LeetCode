@@ -85,5 +85,15 @@ const reOrderArray = function (nums) {
   }, []);
 };
 
+/**
+ * FIXED 位置改变
+ */
+let arr = [1, 2, 3, 4, 5, 6];
+let r = arr.sort((a, b) => {
+  return (b % 2) - (a % 2);
+});
+
+console.log(r);
+
 /**Console */
 console.log(reOrderArray([1, 2, 3, 4, 5, 6]));
