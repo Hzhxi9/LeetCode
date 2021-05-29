@@ -21,7 +21,7 @@ function firstNotRepeatingChar(s) {
     }
   }
   for (const key in temp) {
-    if (temp[key] === 1) return temp[key];
+    if (temp[key] === 1) return s.indexOf(key);
   }
   return -1;
 }
@@ -39,7 +39,8 @@ function firstNotRepeatingChar(s) {
 }
 
 /**
- *
+ * @param {string} s
+ * @returns {number}
  */
 const firstNotRepeatingChar = function (s) {
   if (!s || s.length > 10000) return -1;
@@ -51,10 +52,17 @@ const firstNotRepeatingChar = function (s) {
     }
     return acc;
   }, {});
-  Object.keys(result).forEach((key) => {
-    console.log(key)
-  });
-  return -1
+
+  return (
+    s.indexOf(
+      Object.keys(result).find(key => {
+        return result[key] === 1 && key;
+      })
+    ) || -1
+  );
 };
 
+/**
+ * Debug
+ */
 console.log(firstNotRepeatingChar("sssb"));
