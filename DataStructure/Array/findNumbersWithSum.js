@@ -6,9 +6,8 @@
  * 数组中可能有多对符合条件的结果，而且要求输出乘积最小的，说明要分布在两侧 比如 3,8 5,7 要取3,8
  *
  * 示例:
- * 输入: sum = 15
- * 输出: [ [ 1, 2, 3, 4, 5 ], [ 4, 5, 6 ], [ 7, 8 ] ]
- * 解释: 有序1+2+3+4+5 = 4+5+6 = 7+8 = 15 所以打印出3个连续序列1-5，5-6和7-8。
+ * 输入: sum = [1, 2, 3, 4, 5, 6, 7, 8] target = 11
+ * 输出: [3, 8]
  *
  * 思路分析
  * 1. 设定一个小索引left，从0开始
@@ -26,4 +25,19 @@
  * @param {number} target
  * @returns {number[]}
  */
-function findNumbersWithSum(array, target) {}
+function findNumbersWithSum(array, target) {
+  let left = 0,
+    right = array.length - 1;
+  while (left !== right) {
+    const temp = array[left] + array[right];
+    if (temp === target) {
+      return [array[left], array[right]];
+    } else if (temp > target) {
+      right--;
+    } else if (temp < target) {
+      left++;
+    }
+  }
+}
+
+console.log(findNumbersWithSum([1, 2, 3, 4, 5, 6, 7, 8], 11));
