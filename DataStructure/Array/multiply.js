@@ -36,4 +36,54 @@ const multiply = function (nums) {
   return result;
 };
 
+/**
+ *
+ * @param {number[]} nums
+ * @returns {number[]}
+ */
+const multiply = function (nums) {
+  let result = [];
+  if (Array.isArray(nums) || nums.length) {
+    /**计算左边 */
+    result[0] = 1;
+    for (let i = 1, len = nums.length; i < len; i++) {
+      result[i] = result[i - 1] * nums[i - 1];
+    }
+
+    /**计算右边 */
+    let temp = 1;
+    for (let i = nums.length - 1; i > 0; i--) {
+      temp = temp * nums[i];
+      /**赋值数组的倒数二个坐标, 最后一个为1 */
+      result[i - 1] = result[i - 1] * temp;
+    }
+  }
+  return result;
+};
+
+/**
+ * @param {number[]} nums
+ * @returns {number[]}
+ */
+const multiply = function (nums) {
+  const len = nums.length;
+  const result = [];
+  /**第一次循环 nums 记录 次数 */
+  for (let i = 0; i < len; i++) {
+    let temp = 1;
+    /** 第二次循环记录 nums 所有值 */
+    for (let j = 0; j < len; j++) {
+      if (i === j) {
+        /** 判断 i === j 时， 即剔除i的情况 */
+        temp *= 1;
+      } else {
+        /** 累乘 */
+        temp *= nums[j];
+      }
+    }
+    result.push(temp);
+  }
+  return result;
+};
+
 console.log(multiply([2, 3, 4, 5]));
