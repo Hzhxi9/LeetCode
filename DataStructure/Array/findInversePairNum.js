@@ -20,17 +20,17 @@
  * @param {number[]} nums
  * @returns {number}
  */
-// const findInversePairNum = function (nums) {
-//   const result = {};
-//   for (let i = 0, len = nums.length; i < len; i++) {
-//     for (let j = 1, len = nums.length; j < len; j++) {
-//       if (nums[i] > nums[j]) {
-//         result[i] = nums[j];
-//       }
-//     }
-//   }
-//   return Object.keys(result).length;
-// };
+const findInversePairNum = function (nums) {
+  const result = {};
+  for (let i = 0, len = nums.length; i < len; i++) {
+    for (let j = 1, len = nums.length; j < len; j++) {
+      if (nums[i] > nums[j]) {
+        result[i] = nums[j];
+      }
+    }
+  }
+  return Object.keys(result).length;
+};
 
 /**
  * @param {number[]} nums 
