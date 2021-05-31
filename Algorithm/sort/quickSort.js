@@ -26,6 +26,12 @@ const quickSort = function (array) {
   return merge(quickSort(start), quickSort(end));
 };
 
+/**
+ *
+ * @param {number[]} start
+ * @param {number[]} end
+ * @returns {number[]}
+ */
 const merge = function (start, end) {
   const temp = [];
   while (start.length && end.length) {
@@ -34,6 +40,7 @@ const merge = function (start, end) {
     } else {
       temp.push(end.shift());
     }
+    console.log(temp, "=");
   }
   while (start.length) {
     temp.push(start.shift());
