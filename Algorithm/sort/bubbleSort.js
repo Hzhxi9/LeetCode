@@ -15,11 +15,13 @@
  * @return {number[]}
  */
 const bubbleSort = function (array) {
-  for (let i = 0, len = array.length - 1; i < len; i++) {
+  /**循环次数, 最后一位一定是最大 */
+  let len = array.length - 1;
+  for (let i = 0; i < len; i++) {
     let complete = true;
-
-    for (let j = 0, len = array.length - 1 - i; j < len; j++) {
-      console.log(array[j], i);
+    /**比较次数， 每次比较都少一次 */
+    for (let j = 0; j < len - i; j++) {
+      /**判断条件，满足条件，交换变量 */
       if (array[j] > array[j + 1]) {
         let temp = array[j + 1];
         array[j + 1] = array[j];
@@ -27,12 +29,12 @@ const bubbleSort = function (array) {
         complete = false;
       }
     }
-    // if (complete) break;
+    /** 没有冒泡结束循环 */
+    if (complete) break;
   }
 
   return array;
 };
-z;
 
 /**Debug */
 console.log(bubbleSort([10, 50, 30, 20]));
