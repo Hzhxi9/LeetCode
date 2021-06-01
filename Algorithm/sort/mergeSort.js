@@ -20,7 +20,61 @@
  */
 
 /**
- * @param {number[]} nums
+ * 解法一
+ * 分割数组时直接将数组分割为两个数组，合并时直接合并数组。
+ * 优点：思路简单，写法简单
+ * 缺点：空间复杂度略高，需要复制多个数组
+ *
+ * @param {number[]} array
+ * @return {number[]}
+ */
+const mergeSort = function (array) {
+  if (array.length < 2) return array;
+  /**取那个数组的中间数 */
+  const mid = Math.floor(array.length / 2);
+  console.log("mid", mid, array);
+  /**取左边和右边两个数组 */
+  const start = array.slice(0, mid),
+    end = array.slice(mid);
+
+  return merge(mergeSort(start), mergeSort(end));
+};
+
+/**
+ *
+ * @param {number[]} start
+ * @param {number[]} end
  * @returns {number[]}
  */
-const mergeSort = function (nums) {};
+const merge = function (start, end) {
+  const temp = [];
+
+  while (start.length && end.length) {
+    /**比较左边和右边第一个数 */
+
+    if (start[0] < end[0]) {
+      temp.push(start.shift());
+    } else {
+      temp.push(end.shift());
+    }
+  }
+  while (start.length) {
+    temp.push(start.shift());
+  }
+  while (end.length) {
+    temp.push(end.shift());
+  }
+  // console.log(temp, "==temp");
+  return temp;
+};
+
+/**
+ * 解法二
+ * 记录数组的索引，使用left、right两个索引来限定当前分割的数组
+ * 优点：空间复杂度低，只需一个temp存储空间，不需要拷贝数组
+ * 缺点：写法复杂
+ *
+ * @param {number[]} array
+ * @returns {number[]}
+ */
+// const mergeSort = function (array) {};

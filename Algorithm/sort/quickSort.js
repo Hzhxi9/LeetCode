@@ -20,35 +20,15 @@
  */
 const quickSort = function (array) {
   if (array.length < 2) return array;
-  const mid = Math.floor(array.length / 2);
-  const start = array.slice(0, mid),
-    end = array.slice(mid);
-  return merge(quickSort(start), quickSort(end));
-};
+  const target = array[0],
+    len = array.length,
+    left = [],
+    right = [];
 
-/**
- *
- * @param {number[]} start
- * @param {number[]} end
- * @returns {number[]}
- */
-const merge = function (start, end) {
-  const temp = [];
-  while (start.length && end.length) {
-    if (start[0] < end[0]) {
-      temp.push(start.shift());
-    } else {
-      temp.push(end.shift());
-    }
-    console.log(temp, "=");
+  for (let i = 1; i < len; i++) {
+    array[i] < target ? left.push(array[i]) : right.push(array[i]);
   }
-  while (start.length) {
-    temp.push(start.shift());
-  }
-  while (end.length) {
-    temp.push(end.shift());
-  }
-  return temp;
+  return quickSort(left).concat([target], quickSort(right));
 };
 
 /**
