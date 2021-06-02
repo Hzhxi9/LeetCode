@@ -13,4 +13,22 @@
  * @param {number[]} nums
  * @returns {number[]}
  */
-const shellSort = function (nums) {};
+const shellSort = function (nums) {
+  let len = nums.length;
+  for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    for (let i = 0; i < len; i++) {
+      let j = i,
+        current = nums[i];
+
+      while (j - gap >= 0 && current <= nums[j - gap]) {
+        nums[j] = nums[j - gap];
+        j = j - gap;
+      }
+      nums[j] = current;
+    }
+  }
+  return nums;
+};
+
+/**Debug */
+console.log(shellSort([10, 50, 30, 90, 40, 80, 70]));
