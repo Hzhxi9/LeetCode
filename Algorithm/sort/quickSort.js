@@ -18,19 +18,19 @@
  * @param {number[]} array
  * @return {number[]}
  */
-const quickSort = function (array) {
-  if (array.length < 2) return array;
-  const target = array[0],
-    len = array.length,
-    left = [],
-    right = [];
+// const quickSort = function (array) {
+//   if (array.length < 2) return array;
+//   const target = array[0],
+//     len = array.length,
+//     left = [],
+//     right = [];
 
-  for (let i = 1; i < len; i++) {
-    array[i] <= target ? left.push(array[i]) : right.push(array[i]);
-  }
-  console.log([left, target, right]);
-  return quickSort(left).concat([target], quickSort(right));
-};
+//   for (let i = 1; i < len; i++) {
+//     array[i] <= target ? left.push(array[i]) : right.push(array[i]);
+//   }
+//   console.log([left, target, right]);
+//   return quickSort(left).concat([target], quickSort(right));
+// };
 
 /**
  * 解法一
@@ -40,22 +40,22 @@ const quickSort = function (array) {
  * @param {number[]} array
  * @return {number[]}
  */
-const quickSort = function (array) {
-  if (array.length < 2) return array;
+// const quickSort = function (array) {
+//   if (array.length < 2) return array;
 
-  const index = Math.floor(array.length / 2),
-    left = [],
-    right = [];
+//   const index = Math.floor(array.length / 2),
+//     left = [],
+//     right = [];
 
-  const target = array.splice(index, 1);
+//   const target = array.splice(index, 1);
 
-  for (let i = 0; i < array.length; i++) {
-    array[i] < target ? left.push(array[i]) : right.push(array[i]);
-  }
+//   for (let i = 0; i < array.length; i++) {
+//     array[i] < target ? left.push(array[i]) : right.push(array[i]);
+//   }
 
-  console.log([left, target, right]);
-  return quickSort(left).concat(target, quickSort(right));
-};
+//   console.log([left, target, right]);
+//   return quickSort(left).concat(target, quickSort(right));
+// };
 
 /**
  * 解法二
@@ -68,7 +68,34 @@ const quickSort = function (array) {
  * @param {number[]} array
  * @returns {number[]}
  */
-// const quickSort = function (array) {};
+const quickSort = function (array, start, end) {
+  if (end - start < 1) return;
+  const target = array[start];
+  let l = start,
+    r = end;
+
+  while (l < r) {
+    while (l < r && array[r] >= target) {
+      r--;
+    }
+    array[l] = array[r];
+    while (l < r && array[l] < target) {
+      l++;
+    }
+    array[r] = array[l];
+  }
+
+  array[l] = target;
+  quickSort(array, start, l - 1);
+  quickSort(array, l + 1, end);
+  return array;
+};
 
 /**Debug */
-console.log(quickSort([10, 50, 30, 90, 40, 80, 70]));
+console.log(
+  quickSort(
+    [10, 50, 30, 90, 40, 80, 70],
+    0,
+    [10, 50, 30, 90, 40, 80, 70].length - 1
+  )
+);
