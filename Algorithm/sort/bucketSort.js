@@ -16,3 +16,6 @@
  * @returns {number[]}
  */
 const bucketSort = function (nums) {};
+
+/**Debug */
+console.log(bucketSort([10, 50, 30, 90, 40, 80, 70]));
