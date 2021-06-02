@@ -18,19 +18,19 @@
  * @param {number[]} array
  * @return {number[]}
  */
-// const quickSort = function (array) {
-//   if (array.length < 2) return array;
-//   const target = array[0],
-//     len = array.length,
-//     left = [],
-//     right = [];
+const quickSort = function (array) {
+  if (array.length < 2) return array;
+  const target = array[0],
+    len = array.length,
+    left = [],
+    right = [];
 
-//   for (let i = 1; i < len; i++) {
-//     array[i] <= target ? left.push(array[i]) : right.push(array[i]);
-//   }
-//   console.log([left, target, right]);
-//   return quickSort(left).concat([target], quickSort(right));
-// };
+  for (let i = 1; i < len; i++) {
+    array[i] <= target ? left.push(array[i]) : right.push(array[i]);
+  }
+  console.log([left, target, right]);
+  return quickSort(left).concat([target], quickSort(right));
+};
 
 /**
  * 解法一
@@ -40,22 +40,22 @@
  * @param {number[]} array
  * @return {number[]}
  */
-// const quickSort = function (array) {
-//   if (array.length < 2) return array;
+const quickSort = function (array) {
+  if (array.length < 2) return array;
 
-//   const index = Math.floor(array.length / 2),
-//     left = [],
-//     right = [];
+  const index = Math.floor(array.length / 2),
+    left = [],
+    right = [];
 
-//   const target = array.splice(index, 1);
+  const target = array.splice(index, 1);
 
-//   for (let i = 0; i < array.length; i++) {
-//     array[i] < target ? left.push(array[i]) : right.push(array[i]);
-//   }
+  for (let i = 0; i < array.length; i++) {
+    array[i] < target ? left.push(array[i]) : right.push(array[i]);
+  }
 
-//   console.log([left, target, right]);
-//   return quickSort(left).concat(target, quickSort(right));
-// };
+  console.log([left, target, right]);
+  return quickSort(left).concat(target, quickSort(right));
+};
 
 /**
  * 解法二
@@ -66,19 +66,24 @@
  * 不需要额外存储空间，写法思路稍复杂（有能力推荐这种写法）
  *
  * @param {number[]} array
+ * @param {number} start
+ * @param {number} end
  * @returns {number[]}
  */
 const quickSort = function (array, start, end) {
-  if (end - start < 1) return;
+  if (end - start < 1 || end - start > array.length - 1) return;
+
   const target = array[start];
   let l = start,
     r = end;
 
   while (l < r) {
+    /**查找右侧小于target的值array[r]*/
     while (l < r && array[r] >= target) {
       r--;
     }
     array[l] = array[r];
+    /**查找左侧大于target的值array[l]*/
     while (l < r && array[l] < target) {
       l++;
     }
@@ -86,8 +91,53 @@ const quickSort = function (array, start, end) {
   }
 
   array[l] = target;
+  /**递归排序基数左边的数，递归排序基数右边的数，返回数组 */
   quickSort(array, start, l - 1);
   quickSort(array, l + 1, end);
+  return array;
+};
+
+/**
+ * 解法三
+ * 1. 通过下标取中间数为基数；
+ * 2. 从起点往后寻找比基数大的，记录为下标 i；再从终点往前寻找比基数小的，记录为下标 j，当 i <= j时，原地交换数值；
+ * 3. 重复步骤2，直到遍历所有元素，并记录遍历的最后一个下标 i，以此下标为分界线，分为左右两边，分别重复步骤1~3实现递归排序；
+ *
+ * @param {number[]} array
+ * @param {number} start
+ * @param {number} end
+ * @returns {number[]}
+ */
+const device = function (array, start, end) {
+  if (start >= end) return array;
+  let target = Math.floor((start + end) / 2),
+    l = start,
+    r = end;
+  while (l <= r) {
+    while (array[target] > array[l]) {
+      l++;
+    }
+    while (array[target] < array[r]) {
+      r--;
+    }
+
+    if (r >= l) {
+      let temp = array[l];
+      array[l] = array[r];
+      array[r] = temp;
+      l++;
+      r--;
+    }
+  }
+
+  return l;
+};
+
+const quickSort = function (array, start, end) {
+  if (array.length < 1) return array;
+  let index = device(array, start, end);
+  if (start < index - 1) quickSort(array, start, index - 1);
+  if (end > index) quickSort(array, index + 1, end);
   return array;
 };
 
