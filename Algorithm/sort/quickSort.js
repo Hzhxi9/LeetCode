@@ -26,9 +26,35 @@ const quickSort = function (array) {
     right = [];
 
   for (let i = 1; i < len; i++) {
+    array[i] <= target ? left.push(array[i]) : right.push(array[i]);
+  }
+  console.log([left, target, right]);
+  return quickSort(left).concat([target], quickSort(right));
+};
+
+/**
+ * 解法一
+ * 单独开辟两个存储空间left和right来存储每次递归比target小和大的序列
+ * 每次递归直接返回left、target、right拼接后的数组
+ *
+ * @param {number[]} array
+ * @return {number[]}
+ */
+const quickSort = function (array) {
+  if (array.length < 2) return array;
+
+  const index = Math.floor(array.length / 2),
+    left = [],
+    right = [];
+
+  const target = array.splice(index, 1);
+
+  for (let i = 0; i < array.length; i++) {
     array[i] < target ? left.push(array[i]) : right.push(array[i]);
   }
-  return quickSort(left).concat([target], quickSort(right));
+
+  console.log([left, target, right]);
+  return quickSort(left).concat(target, quickSort(right));
 };
 
 /**
