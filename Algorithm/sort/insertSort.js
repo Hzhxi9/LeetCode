@@ -50,5 +50,7 @@ const insertSort = function (nums) {
   return nums;
 };
 
+module.exports = insertSort;
+
 /**Debug */
 console.log(insertSort([10, 50, 30, 90]));

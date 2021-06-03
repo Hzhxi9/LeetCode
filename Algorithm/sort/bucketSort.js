@@ -15,7 +15,52 @@
  * @param {number[]} nums
  * @returns {number[]}
  */
-const bucketSort = function (nums) {};
+
+const insertSort = require("./insertSort.js");
+
+const bucketSort = function (nums, size) {
+  if (!nums.length) return nums;
+
+  let min = nums[0],
+    max = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] < min) {
+      /**写入最小值 */
+      min = nums[i];
+    } else if (nums[i] > max) {
+      /**写入最大值 */
+      max = nums[i];
+    }
+  }
+
+  /**初始化桶 */
+  const DEFAULT_BUCKET_SIZE = 5; /**桶的默认数量 */
+  const bucketSize = size || DEFAULT_BUCKET_SIZE;
+  let bucketCount = Math.floor((max - min) / bucketSize) + 1,
+    buckets = new Array(bucketCount);
+
+  for (let i = 0; i < buckets.length; i++) {
+    buckets[i] = [];
+  }
+
+  /**利用映射函数将数据分配到各个桶中 */
+  for (let i = 0; i < nums.length; i++) {
+    buckets[Math.floor((nums[i] - min) / bucketSize)].push(nums[i]);
+  }
+
+  nums.length = 0;
+
+  for (let i = 0; i < buckets.length; i++) {
+    /**对每个桶进行排序，这里使用了插入排序 */
+    const result = insertSort(buckets[i]);
+    for (let j = 0; j < result.length; j++) {
+      nums.push(result[j]);
+    }
+  }
+
+  return nums;
+};
 
 /**Debug */
 console.log(bucketSort([10, 50, 30, 90, 40, 80, 70]));
