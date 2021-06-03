@@ -14,6 +14,8 @@
  *
  */
 
+/**实现一 */
+
 /**
  * 交换函数
  * @param {number[]} tree
@@ -63,7 +65,7 @@ const heapify = function (tree, n, i) {
  * @returns
  */
 const buildHeap = function (tree, n) {
-  /**最后一个节点 */
+  /**最后一个父节点 */
   const lastNode = n - 1,
     parent = (lastNode - 1) / 2;
 
@@ -91,6 +93,44 @@ const heapSort = function (nums) {
   }
 
   return tree;
+};
+
+/**实现二 */
+
+/**构建大顶堆，从第一个非叶子节点开始，进行下沉操作 */
+const createHeap = function (array) {
+  const len = array.length,
+    start = parseInt(len / 2) - 1;
+  for (let i = start; i >= 0; i--) {
+    adjust(array, i, len);
+  }
+};
+
+/**将第target个元素进行下沉，孩子节点有比他的的就下沉 */
+const adjust = function (array, target, len) {
+  for (let i = 2 * target + 1; i < len; i = 2 * i + 1) {
+    /**找到孩子节点中最大的 */
+    if (i + 1 < len && array[i + 1] > array[i]) {
+      i = i + 1;
+    }
+    /**下沉 */
+    if (array[i] > array[target]) {
+      [array[i], array[target]] = [array[target], array[i]];
+      target = i;
+    } else {
+      break;
+    }
+  }
+};
+
+const heapSort = function (array) {
+  createHeap(array);
+  /**交换第一个元素和最后一个元素，然后重新调整大顶堆 */
+  for (let i = array.length - 1; i > 0; i--) {
+    [array[i], array[0]] = [array[0], array[i]];
+    adjust(array, 0, i);
+  }
+  return array;
 };
 
 console.log(heapSort([2, 5, 3, 1, 10, 4]));
