@@ -18,7 +18,7 @@
 
 const insertSort = require("./insertSort.js");
 
-const bucketSort = function (nums, size) {
+const bucketSort = function (nums, size = 5) {
   if (!nums.length) return nums;
 
   let min = nums[0],
@@ -35,9 +35,8 @@ const bucketSort = function (nums, size) {
   }
 
   /**初始化桶 */
-  const DEFAULT_BUCKET_SIZE = 5; /**桶的默认数量 */
-  const bucketSize = size || DEFAULT_BUCKET_SIZE;
-  let bucketCount = Math.floor((max - min) / bucketSize) + 1,
+
+  let bucketCount = Math.floor((max - min) / size) + 1,
     buckets = new Array(bucketCount);
 
   for (let i = 0; i < buckets.length; i++) {
@@ -46,7 +45,7 @@ const bucketSort = function (nums, size) {
 
   /**利用映射函数将数据分配到各个桶中 */
   for (let i = 0; i < nums.length; i++) {
-    buckets[Math.floor((nums[i] - min) / bucketSize)].push(nums[i]);
+    buckets[Math.floor((nums[i] - min) / size)].push(nums[i]);
   }
 
   nums.length = 0;
