@@ -34,7 +34,11 @@ const bucketSort = function (nums, size = 5) {
     }
   }
 
-  /**初始化桶 */
+  /**
+   * 初始化桶
+   * bucketCount 求出桶的范围
+   * buckets 每个桶的大小
+   */
 
   let bucketCount = Math.floor((max - min) / size) + 1,
     buckets = new Array(bucketCount);
