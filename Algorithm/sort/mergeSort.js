@@ -79,8 +79,12 @@
  * 记录数组的索引，使用left、right两个索引来限定当前分割的数组
  * 优点：空间复杂度低，只需一个temp存储空间，不需要拷贝数组
  * 缺点：写法复杂
- *
- * @param {number[]} array
+ * 
+ * 合并
+ * @param {number[]} array 目标数组
+ * @param {number} l 左边数组起始下标
+ * @param {number} r 右边数组结束下标
+ * @param {number[]} temp 存储数组
  * @returns {number[]}
  */
 const merge = function (array, l, r, temp) {
@@ -98,29 +102,45 @@ const merge = function (array, l, r, temp) {
   //   left = [],
   //   right = [];
 
+  /**数组中间数 */
   const m = ~~((l + r) / 2);
+  /**
+   * 左边left 从l开始到m结束
+   * 右边right 从m+1开始到r结束
+   * k temp下标
+   */
   let left = l,
     right = m + 1,
     k = 0;
 
   while (left <= m && right <= r) {
     if (array[left] < array[right]) {
+      /**
+       * 右边数组大于左边数组某个值时， 将左边数组push到temp中
+       * left,k递增 继续查询
+       */
       temp[k++] = array[left++];
     } else {
+      /**
+       * 左边数组大于右边数组某个值时， 将右边数组push到temp中
+       * right,k递增 继续查询
+       */
       temp[k++] = array[right++];
     }
   }
 
+  /**当right的值达到限制， 处理左边的数组 */
   while (left <= m) {
     temp[k++] = array[left++];
   }
-
+  /**当left的值达到限制， 处理右边的数组 */
   while (right <= r) {
     temp[k++] = array[right++];
   }
 
   k = 0;
   for (let i = l; i <= r; i++) {
+    /**将排序好的值赋予array */
     array[i] = temp[k++];
   }
 
@@ -164,6 +184,7 @@ const merge = function (array, l, r, temp) {
   // }
 };
 
+/**分治 */
 const mergeSort = function (array, l, r, temp) {
   if (l < r) {
     const m = Math.floor((l + r) / 2);
@@ -176,5 +197,5 @@ const mergeSort = function (array, l, r, temp) {
 
 const arr = [2, 8, 9, 10, 4, 5, 6, 7, 3];
 const l = 0;
-const r = arr.length-1;
+const r = arr.length - 1;
 console.log(mergeSort(arr, l, r, []));
