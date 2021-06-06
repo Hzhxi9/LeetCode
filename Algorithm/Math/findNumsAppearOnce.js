@@ -18,3 +18,64 @@
  *  4. 所以目标的两个值的二进制，一个index位为0，另一个index位为1
  *  5. 按二进制index位为0和1，将数组分两批进行异或，两批最后的结果即为两个目标值
  */
+
+const findNumsAppearOnce = array => {
+  /**
+   * x ^ x = 0
+   * x ^ 0 = x
+   */
+  let num1,
+    num2,
+    sum = 0; // num1 ^ num2
+  for (let i = 0, len = array.length; i < len; i++) {
+    sum ^= array[i];
+  }
+
+  /**
+   * num1 !== num2
+   * 二进制表示中一定有一位存在不同 即一位是1 一位是0
+   */
+  let k = 0;
+
+  /**查找第k位不是1， 哪一位不同 */
+  while (!((sum >> k) & 1)) k++;
+  for (let i = 0, len = array.length; i < len; i++) {
+    if ((array[i] >> k) & 1) {
+      num1 ^= array[i]; /**num1 */
+    }
+  }
+
+  num2 = sum ^ num1; /**num1 ^ num2 ^ num1 = num2 */
+
+  return [num1, num2];
+};
+
+/**
+ *
+ * 只出现一次的数字
+ * 结合律
+ * 1. 与或
+ *    1 & 1 | 0 = (1 & 1) | 0 = 1 | 0 = 1
+ *              =  1 & (1 | 0) = 1 & 1 = 1
+ *
+ *    a & a | c = a & (a | c)
+ *
+ * 2. 异或
+ *    1 ^ 1 ^ 0 = (1 ^ 1) ^ 0 = 0 ^ 0 = 0
+ *              = 1 ^ (1 ^ 0) = 1 ^ 1 = 0
+ *
+ *    a ^ a = 0
+ *    a ^ (~a) = 1
+ *    0 ^ b = b
+ *    a ^ b ^ a = a ^ a ^ b =0 ^ b = b
+ */
+// const findNumsAppearOnce = array => {
+//   let result = 0;
+//   for (let i = 0, len = array.length; i < len; i++) {
+//     result ^= array[i];
+//   }
+//   return result;
+// };
+
+/**Debug */
+console.log(findNumsAppearOnce([3, 1, 1, 2, 2, 4]));
