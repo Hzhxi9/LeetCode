@@ -16,6 +16,11 @@
  *  00001010>>2 = 00000010
  */
 
+/**
+ *
+ * @param {number} n
+ * @returns {number}
+ */
 const NumberOfOne = function (n) {
   let flag = 1,
     count = 0;
