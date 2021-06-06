@@ -19,6 +19,51 @@
  *  5. 按二进制index位为0和1，将数组分两批进行异或，两批最后的结果即为两个目标值
  */
 
+/**
+ * FIXEd
+ * @param {*} array
+ * @returns
+ */
+// /**找到n的二进制第一个为1的位置 */
+// const findFirstOne = function (n) {
+//   let index = 0;
+//   while ((n & 1) === 0 && index < 64) {
+//     n = n >> 1;
+//     index++;
+//   }
+//   return index;
+// };
+
+// /**判断n的二进制第index位是否为1 */
+// const isNOne = (n, index) => n & (n >> index);
+
+// const findNumsAppearOnce = function (array) {
+//   let excl = 0;
+//   const len = array.length;
+//   for (let i = 0; i < len; i++) {
+//     excl ^= array[i];
+//   }
+
+//   let index = findFirstOne(excl);
+//   let result1 = 0,
+//     result2 = 0;
+
+//   for (let i = 0; i < len; i++) {
+//     if (isNOne(array[i], index)) {
+//       result1 ^= array[i];
+//     } else {
+//       result2 ^= array[i];
+//     }
+//   }
+
+//   return [result1, result2];
+// };
+
+/**
+ * 思路二
+ * @param {number[]} array
+ * @returns {number[]}
+ */
 const findNumsAppearOnce = array => {
   /**
    * x ^ x = 0
