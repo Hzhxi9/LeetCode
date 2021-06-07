@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Hzhxi9/LeetCode#readme",
   "devDependencies": {
-    "jest": "^27.0.4"
+    "jest": "^24.8.0"
   }
 }

@@ -59,6 +59,8 @@ const add = function (num1, num2) {
   return add(num1 ^ num2, (num1 & num2) << 1);
 };
 
+module.exports = add;
+
 /**
  * 非递归实现
  * @param {number} num1
