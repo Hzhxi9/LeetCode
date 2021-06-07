@@ -32,13 +32,13 @@
  * @param {number} n
  * @returns {number}
  */
-const countDigitOne = function (n) {
-  let count = 0;
-  for (let i = 0; i <= n; i++) {
-    count += numberOfOne(i);
-  }
-  return count;
-};
+// const countDigitOne = function (n) {
+//   let count = 0;
+//   for (let i = 0; i <= n; i++) {
+//     count += numberOfOne(i);
+//   }
+//   return count;
+// };
 
 /**
  * 查找是否包含1
@@ -55,7 +55,32 @@ function numberOfOne(n) {
   return count;
 }
 
-console.log(countDigitOne(1000));
+/**
+ *  解法二
+ */
+const countDigitOne = function (n) {
+  let count = 0,
+    i = 1,
+    high = (low = cur = level = 0),
+    len = n.toString().length;
+  while (i <= len) {
+    /**从第i位数处于什么量级1,10,100 */
+    level = Math.pow(10, i - 1);
+    /**计算cur之前的数 高位 */
+    high = parseInt(n / (level * 10));
+    /**计算cur之后的数 低位 */
+    low = n % level;
+    /**计算cur */
+    cur = parseInt(n / level) % 10;
+    if (cur === 0) count += high * level;
+    else if (cur === 1) count += high * level + low + 1;
+    else count += (high + 1) * level;
+    i++;
+  }
+  return count;
+};
+
+console.log(countDigitOne(13));
 
 // const countDigitOne = function (n) {
 //   let i = 1,

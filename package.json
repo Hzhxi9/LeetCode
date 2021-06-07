@@ -1,0 +1,22 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hzhxi9/LeetCode.git"
+  },
+  "author": "hzhixi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hzhxi9/LeetCode/issues"
+  },
+  "homepage": "https://github.com/Hzhxi9/LeetCode#readme",
+  "devDependencies": {
+    "jest": "^27.0.4"
+  }
+}
