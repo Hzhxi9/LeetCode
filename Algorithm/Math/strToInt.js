@@ -38,21 +38,16 @@ function isNumber(char) {
 function strToInt(str) {
   const length = str.length;
 
-  // 找出第一个非空字符，判断是不是符号或者数字
+  /**找出第一个非空字符，判断是不是符号或者数字 */
   let firstNotEmptyIndex = 0;
-  for (
-    ;
-    firstNotEmptyIndex < length && str[firstNotEmptyIndex] === " ";
-    ++firstNotEmptyIndex
-  ) {}
-  if (
-    !isSymbol(str[firstNotEmptyIndex]) &&
-    !isNumber(str[firstNotEmptyIndex])
-  ) {
-    return 0;
+  while (firstNotEmptyIndex < length && str[firstNotEmptyIndex] === " ") {
+    ++firstNotEmptyIndex;
   }
 
-  // 如果是符号，那么判断正负号
+  if (!isSymbol(str[firstNotEmptyIndex]) && !isNumber(str[firstNotEmptyIndex]))
+    return 0;
+
+  /**如果是符号，那么判断正负号 */
   let positive = true,
     firstNumberIndex = firstNotEmptyIndex;
   if (isSymbol(str[firstNotEmptyIndex])) {
@@ -60,19 +55,19 @@ function strToInt(str) {
     firstNumberIndex += 1;
   }
 
-  // 如果符号后面跟的不是数字，那么就是非法的，返回0
-  if (!isNumber(str[firstNumberIndex])) {
-    return 0;
-  }
+  /**如果符号后面跟的不是数字，那么就是非法的，返回0 */
+  if (!isNumber(str[firstNumberIndex])) return 0;
 
-  // 确定连续数字字符的起始边界
+  /**确定连续数字字符的起始边界 */
   let endNumberIndex = firstNumberIndex;
   while (endNumberIndex < length && isNumber(str[endNumberIndex + 1])) {
     ++endNumberIndex;
   }
 
-  // 计算数字字符的代表的数字大小
-  // 并且判断是否越界
+  /**
+   * 计算数字字符的代表的数字大小
+   * 并且判断是否越界
+   */
   let result = 0;
   for (let i = firstNumberIndex; i <= endNumberIndex; ++i) {
     result = result * 10 + (str[i] - "0");
@@ -84,7 +79,7 @@ function strToInt(str) {
     }
   }
 
-  // 返回的时候注意符号
+  /**返回的时候注意符号 */
   return positive ? result : -1 * result;
 }
 
