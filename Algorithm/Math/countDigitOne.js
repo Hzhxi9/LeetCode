@@ -1,29 +1,9 @@
 /**
+ *  整数中 1 出现的次数
+ *
  *  题目
  *  求出1~13的整数中1出现的次数,并算出100~1300的整数中1出现的次数？
  *
- *  示例
- *  3101592
- *
- *  1. "1"在百位上出现的次数   base 100
- *  cur 5       n / base / 10
- *  a   3101    n % base
- *  b   92      (n / base) % 10
- *  cur 定为 1 cur > 1
- *  cur前面出现的范围为 0000 ～ 3101  （a + 1）
- *  cur后面出现的范围为 00 ～ 99        base
- *  则1在百位上出现的个数为 (a + 1) * base
- *
- *  2. "1"在千位上出现的次数   base 1000
- *  cur 1    cur === 1
- *  -  000 ～ 309  000 ～ 999   a * base
- *  -  310         000 ～ 592   1 * （b + 1）
- *  则1在百位上出现的个数为 a * base + b + 1
- *
- *  3. "1"在万位出现的个数     base 10000
- *  cur 0   cur < 1
- *  - 00 ～ 30 0000 ～ 9999  a * base
- *  则1在万位上出现的个数为 a * base
  */
 
 /**
@@ -40,81 +20,75 @@
 //   return count;
 // };
 
-/**
- * 查找是否包含1
- * @param {number} n
- * @returns {number}
- */
-function numberOfOne(n) {
-  let count = 0;
-  let pos = n.toString().indexOf(1);
-  while (~pos) {
-    pos = n.toString().indexOf(1, pos + 1);
-    count++;
-  }
-  return count;
-}
+// /**
+//  * 查找是否包含1
+//  * @param {number} n
+//  * @returns {number}
+//  */
+// function numberOfOne(n) {
+//   let count = 0;
+//   let pos = n.toString().indexOf(1);
+//   while (~pos) {
+//     pos = n.toString().indexOf(1, pos + 1);
+//     count++;
+//   }
+//   return count;
+// }
 
 /**
  *  解法二
  */
-const countDigitOne = function (n) {
-  let count = 0,
-    i = 1,
-    high = (low = cur = level = 0),
-    len = n.toString().length;
-  while (i <= len) {
-    /**从第i位数处于什么量级1,10,100 */
-    level = Math.pow(10, i - 1);
-    /**计算cur之前的数 高位 */
-    high = parseInt(n / (level * 10));
-    /**计算cur之后的数 低位 */
-    low = n % level;
-    /**计算cur */
-    cur = parseInt(n / level) % 10;
-    if (cur === 0) count += high * level;
-    else if (cur === 1) count += high * level + low + 1;
-    else count += (high + 1) * level;
-    i++;
-  }
-  return count;
-};
-
-console.log(countDigitOne(13));
-
 // const countDigitOne = function (n) {
-//   let i = 1,
-//     count = 0,
-//     current,
-//     before,
-//     after;
-
-//   while (n / i !== 0) {
-//     current = (n / i) % 10;
-//     before = n / (i * 10);
-//     after = n - (n / i) * i;
-
-//     if (current === 0) {
-//       count += before * i;
-//     } else if (current === 1) {
-//       count = count + (before * i + after + 1);
-//     } else {
-//       count += (before + 1) * i;
-//     }
-
-//     i = i * 10;
-
-//     // b = n % base;
-//     // a = n / base;
-//     // cur = a % 10;
-//     // a /= 10;
-//     // if (cur > 1) res += (a + 1) * base;
-//     // else if (cur === 1) res += a * base + b + 1;
-//     // else res += a * base;
-//     // base *= 10;
+//   let count = 0,
+//     i = 1,
+//     high = (low = cur = level = 0),
+//     len = n.toString().length;
+//   while (i <= len) {
+//     /**获取当前第i位数处于什么量级1,10,100 */
+//     level = Math.pow(10, i - 1);
+//     /**计算cur之前的数 高位 */
+//     high = parseInt(n / (level * 10));
+//     /**计算cur之后的数 低位 */
+//     low = n % level;
+//     /**计算cur */
+//     cur = parseInt(n / level) % 10;
+//     if (cur === 0) count += high * level;
+//     else if (cur === 1) count += high * level + low + 1;
+//     else count += (high + 1) * level;
+//     i++;
 //   }
-
 //   return count;
 // };
 
-// console.log(countDigitOne(13));
+/**
+ * 解法三
+ *
+ * @param {number} n
+ * @returns {number}
+ */
+const countDigitOne = function (n) {
+  if (n === 0) return 0;
+  const len = n.toString().length;
+  /**当n为0~9时 */
+  if (len === 1) return 1;
+  /**获取当前幂级 */
+  const level = Math.pow(10, len - 1),
+    /**获取第一个数字 */
+    firstNumber = parseInt(n / level),
+    /**
+     * 第一个数字可能出现的情况
+     * 当第一个数字为1时，出现的可能数取决后面的数字
+     * 当第一个数字不为1时，出现的可能数为当前幂级
+     **/
+    firstBit = parseInt(firstNumber === 1 ? (n % level) + 1 : level),
+    /**
+     * 其他位数可能出现的情况
+     * len - 1 剩余位的个数
+     * level / 10 剩余位的幂级
+     * * firstNumber 根据首位进行判断情况
+     */
+    otherBit = parseInt((len - 1) * firstNumber * (level / 10));
+  return firstBit + otherBit + countDigitOne(n % level);
+};
+
+module.exports = countDigitOne;
