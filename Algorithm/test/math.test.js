@@ -5,6 +5,11 @@ test.skip(" 整数中 1 出现的次数", () => {
 });
 
 const strToInt = require("../math/strToInt");
-test(" 字符串转换成整数", () => {
-  expect(strToInt("1")).toBe(1);
+test.each([
+  [" +1.123sfsdfsd", 1],
+  [" -42", -42],
+  ["1", 1],
+  ["91283472332", 2147483647],
+])(" 字符串转换成整数", (str, num) => {
+  expect(strToInt(str)).toBe(num);
 });
