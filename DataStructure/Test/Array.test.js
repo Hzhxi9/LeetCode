@@ -1,11 +1,11 @@
 const findInversePairNum = require("../Array/findInversePairNum");
 
-test("数组中的逆序对", () => {
+test.skip("数组中的逆序对", () => {
   expect(findInversePairNum([1, 2, 3, 4, 5, 6, 7, 0])).toBe(7);
 });
 
 const printMatrix = require("../Array/printMatrix");
-test("顺时针打印矩阵", () => {
+test.skip("顺时针打印矩阵", () => {
   expect(
     printMatrix([
       [1, 2, 3],
@@ -13,4 +13,16 @@ test("顺时针打印矩阵", () => {
       [7, 8, 9],
     ])
   ).toEqual([1, 2, 3, 6, 9, 8, 7, 4, 5]);
+});
+
+const fourSum = require("../Array/fourSum");
+test("四数之和", () => {
+  const arr = [1, 0, -1, 0, -2, 2],
+    target = 0, 
+    result = [
+      [-1, 0, 0, 1],
+      [-2, -1, 1, 2],
+      [-2, 0, 0, 2],
+    ];
+  expect(fourSum(arr, target)).toEqual(result);
 });
