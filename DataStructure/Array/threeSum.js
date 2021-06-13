@@ -23,36 +23,79 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+// const threeSum = (nums) => {
+//   nums.sort((a, b) => a - b);
+//   const result = [];
+//   for (let i = 0, len = nums.length; i < len; i++) {
+//     /**跳过重复数字 */
+//     if (i && nums[i] === nums[i - 1]) continue;
+//     let left = i + 1,
+//       right = nums.length - 1;
+//     while (left < right) {
+//       const sum = nums[i] + nums[left] + nums[right];
+//       if (sum > 0) {
+//         /**sum大于0, right向座移动 */
+//         right--;
+//       } else if (sum < 0) {
+//         /**sum小于0, left向右移动 */
+//         left++;
+//       } else {
+//         result.push([nums[i], nums[left++], nums[right--]]);
+//         /**跳过重复数字 */
+//         while (nums[left] === nums[left - 1]) {
+//           left++;
+//         }
+//         /**跳过重复数字 */
+//         while (nums[right] === nums[right + 1]) {
+//           right--;
+//         }
+//       }
+//     }
+//   }
+//   return result;
+// };
+
+/**
+ * 双指针解法
+ * @param {number[]} nums
+ * @returns {number[][]}
+ */
 const threeSum = (nums) => {
+  const result = new Set();
+
+  if (nums === null || nums.length < 3) return result;
+
+  /**数组进行从小到大排序 */
   nums.sort((a, b) => a - b);
-  const result = [];
+
   for (let i = 0, len = nums.length; i < len; i++) {
-    /**跳过重复数字 */
-    if (i && nums[i] === nums[i - 1]) continue;
+    /**排除重复，对比上一个值和当前值，相等就跳过 */
+    if (i > 0 && nums[i - 1] === nums[i]) continue;
+
     let left = i + 1,
       right = nums.length - 1;
+
     while (left < right) {
       const sum = nums[i] + nums[left] + nums[right];
-      if (sum > 0) {
-        /**sum大于0, right向座移动 */
-        right--;
-      } else if (sum < 0) {
-        /**sum小于0, left向右移动 */
+      if (sum === 0) {
+        result.add([nums[i], nums[left], nums[right]]);
+        /**符合情况之后，继续前进时发现下一个数字一致，就继续前进 */
+        while (left < right && nums[left + 1] === nums[left]) left++;
+        while (left < right && nums[right - 1] === nums[right]) right--;
+        /**符合条件，right和left往中间 */
         left++;
+        right--;
+      } else if (sum > 0) {
+        /**当值大与0， 则right向左 */
+        right--;
       } else {
-        result.push([nums[i], nums[left++], nums[right--]]);
-        /**跳过重复数字 */
-        while (nums[left] === nums[left - 1]) {
-          left++;
-        }
-        /**跳过重复数字 */
-        while (nums[right] === nums[right + 1]) {
-          right--;
-        }
+        /**当值小于0， 则left向右 */
+        left++;
       }
     }
   }
-  return result;
+
+  return [...result];
 };
 
 /**Debug */
