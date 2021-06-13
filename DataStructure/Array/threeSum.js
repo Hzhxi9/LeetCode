@@ -60,42 +60,100 @@
  * @param {number[]} nums
  * @returns {number[][]}
  */
+// const threeSum = (nums) => {
+//   const result = new Set();
+
+//   if (nums === null || nums.length < 3) return result;
+
+//   /**数组进行从小到大排序 */
+//   nums.sort((a, b) => a - b);
+
+//   for (let i = 0, len = nums.length; i < len; i++) {
+//     /**排除重复，对比上一个值和当前值，相等就跳过 */
+//     if (i > 0 && nums[i - 1] === nums[i]) continue;
+
+//     let left = i + 1,
+//       right = nums.length - 1;
+
+//     while (left < right) {
+//       const sum = nums[i] + nums[left] + nums[right];
+//       if (sum === 0) {
+//         result.add([nums[i], nums[left], nums[right]]);
+//         /**符合情况之后，继续前进时发现下一个数字一致，就继续前进 */
+//         while (left < right && nums[left + 1] === nums[left]) left++;
+//         while (left < right && nums[right - 1] === nums[right]) right--;
+//         /**符合条件，right和left往中间 */
+//         left++;
+//         right--;
+//       } else if (sum > 0) {
+//         /**当值大与0， 则right向左 */
+//         right--;
+//       } else {
+//         /**当值小于0， 则left向右 */
+//         left++;
+//       }
+//     }
+//   }
+
+//   return [...result];
+// };
+
+/**
+ * 回溯算法
+ * @param {number[]} nums
+ * @returns {number[][]}
+ */
+const result = new Set(),
+  tmp = new Set();
 const threeSum = (nums) => {
-  const result = new Set();
+  if (nums === null || nums.length < 3) return nums;
 
-  if (nums === null || nums.length < 3) return result;
-
-  /**数组进行从小到大排序 */
   nums.sort((a, b) => a - b);
 
-  for (let i = 0, len = nums.length; i < len; i++) {
-    /**排除重复，对比上一个值和当前值，相等就跳过 */
-    if (i > 0 && nums[i - 1] === nums[i]) continue;
+  kSum(3, 0, 0, nums);
 
-    let left = i + 1,
-      right = nums.length - 1;
+  return result;
+};
 
+const kSum = (k, start, target, nums) => {
+  const len = nums.length;
+
+  if (k > 2) {
+    for (let i = start; i <= len; i++) {
+      if (i > start && nums[i] === nums[i - 1]) continue;
+
+      tmp.add(nums[i]);
+      kSum(k - 1, i + 1, target - nums[i], nums);
+      tmp.delete(tmp.size - 1);
+    }
+  } else if (k === 2) {
+    let left = start,
+      right = len - 1;
     while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
-      if (sum === 0) {
-        result.add([nums[i], nums[left], nums[right]]);
-        /**符合情况之后，继续前进时发现下一个数字一致，就继续前进 */
-        while (left < right && nums[left + 1] === nums[left]) left++;
-        while (left < right && nums[right - 1] === nums[right]) right--;
-        /**符合条件，right和left往中间 */
-        left++;
-        right--;
-      } else if (sum > 0) {
-        /**当值大与0， 则right向左 */
-        right--;
+      const sum = nums[left] + nums[right];
+      if (sum < target) {
+        do {
+          left++;
+        } while (left < right && nums[left] === nums[left - 1]);
+      } else if (sum > target) {
+        do {
+          right--;
+        } while (left < right && nums[right] === nums[right + 1]);
       } else {
-        /**当值小于0， 则left向右 */
+        tmp.add(nums[left]);
+        tmp.add(nums[right]);
+        result.add(new Set(tmp));
+        tmp.delete(tmp.size - 1);
+        tmp.delete(tmp.size - 1);
+
+        while (left < right && nums[left] === nums[left + 1]) left++;
+        while (left < right && nums[right] === nums[right - 1]) right--;
         left++;
+        right--;
       }
     }
   }
-
-  return [...result];
+  return result;
 };
 
 /**Debug */
