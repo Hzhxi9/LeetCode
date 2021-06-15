@@ -1,3 +1,11 @@
+const threeSum = require("../Array/threeSum");
+test("三数之和", () => {
+  expect(threeSum([-1, 0, 1, 2, -1, -4])).toEqual([
+    [-1, -1, 2],
+    [-1, 0, 1],
+  ]);
+});
+
 const findInversePairNum = require("../Array/findInversePairNum");
 
 test.skip("数组中的逆序对", () => {
@@ -15,14 +23,11 @@ test.skip("顺时针打印矩阵", () => {
   ).toEqual([1, 2, 3, 6, 9, 8, 7, 4, 5]);
 });
 
-  // const fourSum = require("../Array/fourSum");
-  // test("四数之和", () => {
-  //   const arr = [1, 0, -1, 0, -2, 2],
-  //     target = 0, 
-  //     result = [
-  //       [-1, 0, 0, 1],
-  //       [-2, -1, 1, 2],
-  //       [-2, 0, 0, 2],
-  //     ];
-  //   expect(fourSum(arr, target)).toEqual(result);
-  // });
+// const fourSum = require("../Array/fourSum");
+// test("四数之和", () => {
+//   expect(fourSum([1, 0, -1, 0, -2, 2], 0)).toEqual([
+//     [-1, 0, 0, 1],
+//     [-2, -1, 1, 2],
+//     [-2, 0, 0, 2],
+//   ]);
+// });

@@ -6,17 +6,33 @@
  *
  */
 
+/**
+ *
+ * @param {number[]} arr
+ * @param {number} target
+ * @returns {number[][]}
+ */
 const fourSum = (arr, target) => {
   if (arr.length < 4) return [];
+  /**先排序 */
   arr.sort((a, b) => a - b);
   const result = [];
 
-  for (let i = 0, len = arr.length - 3; i < len; i++) {
+  /**选择第一个数 */
+  for (let i = 0, len = arr.length - 4; i < len; i++) {
+    /**跳过重复数字 */
     if (i > 0 && arr[i] === arr[i - 1]) continue;
+    /**最小的四个数相加大于target,彻底没戏 */
+    const min = arr[i] + arr[i + 1] + arr[i + 2] + arr[i + 3];
+    if (min > target) break;
 
-    if (arr[i] + arr[i + 1] + arr[i + 2] + arr[i + 3] > target) break;
-
-    for (let j = i + 1; j < arr.length - 2; j++) {
+    /*当前数字加上其余最大的三个数字，小于target，还能在抢救一下 */
+    const max =
+      arr[i] + arr[arr.length - 1] + arr[arr.length - 2] + arr[arr.length - 4];
+    if (max < target) continue;
+    /**选择第二个数 */
+    for (let j = i + 1; j < arr.length - 3; j++) {
+      /**跳过重复数字 */
       if (j > i + 1 && arr[j] === arr[j - 1]) continue;
       let left = j + 1,
         right = arr.length - 1;
@@ -26,9 +42,13 @@ const fourSum = (arr, target) => {
           result.push([arr[i], arr[j], arr[left], arr[right]]);
         }
         if (sum <= target) {
-          while (arr[left] === arr[++left]) {}
+          do {
+            left++;
+          } while (arr[left] === arr[left + 1]);
         } else {
-          while (arr[right] === arr[--right]) {}
+          do {
+            right--;
+          } while (arr[right] === arr[right - 1]);
         }
       }
     }
@@ -38,7 +58,6 @@ const fourSum = (arr, target) => {
 
 const arr = [1, 0, -1, 0, -2, 2],
   target = 0;
- 
 
 console.log(fourSum(arr, target));
 
