@@ -1,5 +1,5 @@
 const threeSum = require("../Array/threeSum");
-test("三数之和", () => {
+test.skip("三数之和", () => {
   expect(threeSum([-1, 0, 1, 2, -1, -4])).toEqual([
     [-1, -1, 2],
     [-1, 0, 1],
@@ -7,7 +7,6 @@ test("三数之和", () => {
 });
 
 const findInversePairNum = require("../Array/findInversePairNum");
-
 test.skip("数组中的逆序对", () => {
   expect(findInversePairNum([1, 2, 3, 4, 5, 6, 7, 0])).toBe(7);
 });
@@ -21,6 +20,11 @@ test.skip("顺时针打印矩阵", () => {
       [7, 8, 9],
     ])
   ).toEqual([1, 2, 3, 6, 9, 8, 7, 4, 5]);
+});
+
+const binarySearch = require("../Array/binarySearch");
+test("在排序数组中查找数字", () => {
+  expect(binarySearch([1, 2, 3, 3, 3, 3, 4, 5], 3)).toBe(4);
 });
 
 // const fourSum = require("../Array/fourSum");

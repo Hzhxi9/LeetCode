@@ -23,37 +23,37 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-const threeSum = nums => {
-  nums.sort((a, b) => a - b);
-  const result = [];
-  for (let i = 0, len = nums.length; i < len; i++) {
-    /**跳过重复数字 */
-    if (i && nums[i] === nums[i - 1]) continue;
-    let left = i + 1,
-      right = nums.length - 1;
-    while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
-      if (sum > 0) {
-        /**sum大于0, right向座移动 */
-        right--;
-      } else if (sum < 0) {
-        /**sum小于0, left向右移动 */
-        left++;
-      } else {
-        result.push([nums[i], nums[left++], nums[right--]]);
-        /**跳过重复数字 */
-        while (nums[left] === nums[left - 1]) {
-          left++;
-        }
-        /**跳过重复数字 */
-        while (nums[right] === nums[right + 1]) {
-          right--;
-        }
-      }
-    }
-  }
-  return result;
-};
+// const threeSum = nums => {
+//   nums.sort((a, b) => a - b);
+//   const result = [];
+//   for (let i = 0, len = nums.length; i < len; i++) {
+//     /**跳过重复数字 */
+//     if (i && nums[i] === nums[i - 1]) continue;
+//     let left = i + 1,
+//       right = nums.length - 1;
+//     while (left < right) {
+//       const sum = nums[i] + nums[left] + nums[right];
+//       if (sum > 0) {
+//         /**sum大于0, right向座移动 */
+//         right--;
+//       } else if (sum < 0) {
+//         /**sum小于0, left向右移动 */
+//         left++;
+//       } else {
+//         result.push([nums[i], nums[left++], nums[right--]]);
+//         /**跳过重复数字 */
+//         while (nums[left] === nums[left - 1]) {
+//           left++;
+//         }
+//         /**跳过重复数字 */
+//         while (nums[right] === nums[right + 1]) {
+//           right--;
+//         }
+//       }
+//     }
+//   }
+//   return result;
+// };
 
 /**
  * 双指针解法
