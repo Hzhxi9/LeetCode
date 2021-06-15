@@ -25,7 +25,7 @@ test.skip("顺时针打印矩阵", () => {
 const binarySearch = require("../Array/binarySearch");
 test("在排序数组中查找数字", () => {
   expect(binarySearch([1, 2, 3, 3, 3, 3, 4, 5], 3)).toBe(4);
-});
+}); 
 
 // const fourSum = require("../Array/fourSum");
 // test("四数之和", () => {
