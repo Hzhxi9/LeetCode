@@ -26,11 +26,14 @@ const binarySearch = (array, target) => {
   let l = 0,
     r = len - 1;
 
+  /**查找最左边界 */
   while (l < r) {
     let mid = ~~((l + r) >> 1);
     if (array[mid] < target) {
+      /**中间值小于目标值, 增大左边界*/
       l = mid + 1;
     } else {
+      /**中间值大于等于目标值, 缩小右边界*/
       r = mid;
     }
   }
@@ -39,20 +42,23 @@ const binarySearch = (array, target) => {
   let left = l;
 
   (l = 0), (r = len - 1);
+  /**查找最右边界 */
   while (l < r) {
-    let mid = ~~((l + r) >> 1);
+    /**增大边界, 搜索区间边界[l,r) */
+    let mid = ~~((l + r + 1) >> 1);
     if (array[mid] <= target) {
+      /**中间值小于等于目标值, 增大左边界*/
       l = mid;
     } else {
+      /**中间值大于目标值, 增大左边界*/
       r = mid - 1;
     }
   }
   let right = r;
 
-  console.log(left, right);
-
   return right - left + 1;
 };
+console.log(binarySearch([1, 2, 3, 3, 3, 3, 4, 5], 4));
 
 /**
  *  使用二分查找找到目标值，在向前向后遍历，找到所有的数
@@ -75,9 +81,6 @@ const binarySearch = (array, target) => {
 //   return len;
 // };
 
-/**
- *  使用二分查找找到目标值，在向前向后遍历，找到所有的数
- */
 // const binarySearch = (nums, target) => {
 //   if (!nums.length) return 0;
 //   const len = nums.length;
@@ -86,14 +89,13 @@ const binarySearch = (array, target) => {
 //     r = len - 1,
 //     count = 0;
 
-//   while (l < r) {
+//   while (l <= r) {
 //     let mid = ~~((l + r) >> 1);
-
 //     /**搜索区间变为[l,m] */
 //     if (nums[mid] >= target) r = mid;
-//     /**搜索区间变为[mid+1,r] */ else l = mid + 1;
+//     /**搜索区间变为[mid+1,r] */
+//     else l = mid + 1;
 //   }
-
 //   if (nums[l] === target) {
 //     for (let i = l; i < len; i++) {
 //       if (nums[i] === target) count++;
@@ -103,7 +105,5 @@ const binarySearch = (array, target) => {
 
 //   return count;
 // };
-
-console.log(binarySearch([1, 2, 3, 3, 3, 3, 4, 5], 3));
 
 module.exports = binarySearch;
