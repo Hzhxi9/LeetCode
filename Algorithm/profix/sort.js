@@ -130,7 +130,7 @@ function adjust(array, target, len) {
   }
 }
 
-function createHeap(array) {
+function buildHeap(array) {
   const len = array.length,
     start = ~~(len >> 1) - 1;
 
@@ -138,11 +138,13 @@ function createHeap(array) {
 }
 
 function heapSort(array) {
-  createHeap(array);
-  for (let i = array.length - 1; i > 0; i--) {
+  buildHeap(array);
+  const len = array.length;
+  for (let i = len - 1; i > 0; i--) {
     [array[i], array[0]] = [array[0], array[i]];
     adjust(array, 0, i);
   }
   return array;
 }
+
 console.log(heapSort([10, 50, 30, 90, 40, 80, 70]));
