@@ -16,86 +16,86 @@
 
 /**实现一 */
 
-/**
- * 交换函数
- * @param {number[]} tree
- * @param {number} max
- * @param {number} i
- */
-const swap = function (tree, max, i) {
-  let temp = tree[max];
-  tree[max] = tree[i];
-  tree[i] = temp;
-};
+// /**
+//  * 交换函数
+//  * @param {number[]} tree
+//  * @param {number} max
+//  * @param {number} i
+//  */
+// const swap = function (tree, max, i) {
+//   let temp = tree[max];
+//   tree[max] = tree[i];
+//   tree[i] = temp;
+// };
 
-/**
- * 单个堆结构处理
- * @param {number[]} tree
- * @param {number} n
- * @param {number} i
- * @returns {number[]}
- */
-const heapify = function (tree, n, i) {
-  /**递归出口 */
-  if (i >= n) return;
+// /**
+//  * 单个堆结构处理
+//  * @param {number[]} tree
+//  * @param {number} n
+//  * @param {number} i
+//  * @returns {number[]}
+//  */
+// const heapify = function (tree, n, i) {
+//   /**递归出口 */
+//   if (i >= n) return;
 
-  /**左右子节点,最大数 */
-  let c1 = 2 * i + 1,
-    c2 = 2 * i + 2,
-    max = i;
+//   /**左右子节点,最大数 */
+//   let c1 = 2 * i + 1,
+//     c2 = 2 * i + 2,
+//     max = i;
 
-  /**比较左右节点,获取最大值 */
-  if (c1 < n && tree[c1] > tree[max]) max = c1;
-  if (c2 < n && tree[c2] > tree[max]) max = c2;
+//   /**比较左右节点,获取最大值 */
+//   if (c1 < n && tree[c1] > tree[max]) max = c1;
+//   if (c2 < n && tree[c2] > tree[max]) max = c2;
 
-  if (max !== i) {
-    /**max发生改变 调用swap函数 */
-    swap(tree, max, i);
-    /**递归处理 */
-    heapify(tree, n, max);
-  }
+//   if (max !== i) {
+//     /**max发生改变 调用swap函数 */
+//     swap(tree, max, i);
+//     /**递归处理 */
+//     heapify(tree, n, max);
+//   }
 
-  return tree;
-};
+//   return tree;
+// };
 
-/**
- * 返回整个堆结构
- * @param {number[]} tree
- * @param {number} n
- * @returns
- */
-const buildHeap = function (tree, n) {
-  /**最后一个父节点 */
-  const lastNode = n - 1,
-    parent = (lastNode - 1) / 2;
+// /**
+//  * 返回整个堆结构
+//  * @param {number[]} tree
+//  * @param {number} n
+//  * @returns
+//  */
+// const buildHeap = function (tree, n) {
+//   /**最后一个父节点 */
+//   const lastNode = n - 1,
+//     parent = (lastNode - 1) / 2;
 
-  for (let i = parent; i >= 0; i--) {
-    heapify(tree, n, i);
-  }
+//   for (let i = parent; i >= 0; i--) {
+//     heapify(tree, n, i);
+//   }
 
-  return tree;
-};
+//   return tree;
+// };
 
-/**
- * @param {number[]} nums
- * @returns {number[]}
- */
-const heapSort = function (nums) {
-  let n = nums.length;
-  /**建立一个堆 */
-  const tree = buildHeap(nums, n);
+// /**
+//  * @param {number[]} nums
+//  * @returns {number[]}
+//  */
+// const heapSort = function (nums) {
+//   let n = nums.length;
+//   /**建立一个堆 */
+//   const tree = buildHeap(nums, n);
 
-  for (let i = n - 1; i >= 0; i--) {
-    /**交换第一个节点和最后一个节点 */
-    swap(tree, i, 0);
-    /**排除最后一个节点 */
-    heapify(tree, i, 0);
-  }
+//   for (let i = n - 1; i >= 0; i--) {
+//     /**交换第一个节点和最后一个节点 */
+//     swap(tree, i, 0);
+//     /**排除最后一个节点 */
+//     heapify(tree, i, 0);
+//   }
 
-  return tree;
-};
+//   return tree;
+// };
 
-/**实现二 */
+// /**实现二 */
 
 /**构建大顶堆，从第一个非叶子节点开始，进行下沉操作 */
 const createHeap = function (array) {
@@ -133,4 +133,4 @@ const heapSort = function (array) {
   return array;
 };
 
-console.log(heapSort([2, 5, 3, 1, 10, 4]));
+console.log(heapSort([10, 50, 30, 90, 40, 80, 70]));
