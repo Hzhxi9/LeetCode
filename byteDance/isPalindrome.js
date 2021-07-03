@@ -42,7 +42,7 @@ function isPalindrome(head) {
 //   let slow = head,
 //     fast = head;
 
-//   while (fast.next.next !== null && slow.next !== null) {
+//   while (fast.next.next !== null && fast.next !== null) {
 //     fast = fast.next.next;
 //     slow = slow.next;
 //   }

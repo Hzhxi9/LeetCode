@@ -5,8 +5,8 @@ function ListNode(val) {
   
   let h1 = new ListNode(1);
   let n2 = new ListNode(2);
-  let n3 = new ListNode(3);
-  let n4 = new ListNode(4);
+  let n3 = new ListNode(2);
+  let n4 = new ListNode(1);
   
   h1.next = n2;
   n2.next = n3;

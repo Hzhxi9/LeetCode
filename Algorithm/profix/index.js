@@ -14,47 +14,54 @@
 //   return true;
 // }
 
-function isPalindrome(head) {
-  let arr = [],
-    cur = head;
+// function isPalindrome(head) {
+//   let arr = [],
+//     cur = head;
 
-  while (cur !== null) {
-    arr.push(cur.val);
-    cur = cur.next;
+//   while (cur !== null) {
+//     arr.push(cur.val);
+//     cur = cur.next;
+//   }
+
+//   while (head !== null) {
+//     if (arr[arr.length - 1] !== head.val) return false;
+//     head = head.next;
+//     arr.pop();
+//   }
+
+//   return true;
+// }
+
+function reverse(head) {
+  if (head === null || head.next === null) return head;
+  const res = reverse(head.next);
+  head.next.next = head;
+  head.next = null;
+  return res;
+}
+
+
+function isPalindrome(head) {
+  let slow = head,
+    fast = head;
+
+  while (fast.next.next !== null && slow.next !== null) {
+    fast = fast.next.next;
+    slow = slow.next;
   }
 
-  while (head !== null) {
-    if (arr[arr.length - 1] !== head.val) return false;
+  let rev = reverse(slow.next);
+
+  while (rev !== null) {
+    if (rev.val !== head.val) return false;
+    rev = rev.next;                   
     head = head.next;
-    arr.pop();
   }
 
   return true;
 }
 
-// function reverseList(head) {
-//   if (head === null || head.next === null) return head;
-//   const res = reverseList(head.next);
-//   head.next.next = head;
-//   head.next = null;
-//   return res;
-// }
-
-function reverseList(head) {
-  let cur = head,
-    tmp,
-    pre = null;
-
-  while (cur !== null) {
-    tmp = cur.next;
-    cur.next = pre;
-    pre = cur;
-    cur = tmp;
-  }
-
-  return pre
-}
 
 const h1 = require("./ListNode");
 
-console.log(reverseList(h1));
+console.log(isPalindrome(h1));
