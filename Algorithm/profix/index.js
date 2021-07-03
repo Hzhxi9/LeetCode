@@ -10,6 +10,7 @@
 //   for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
 //     if (arr[i] !== arr[j]) return false;
 //   }
+
 //   return true;
 // }
 
@@ -23,25 +24,37 @@ function isPalindrome(head) {
   }
 
   while (head !== null) {
-    if (head.val !== arr[arr.length - 1]) return false;
+    if (arr[arr.length - 1] !== head.val) return false;
     head = head.next;
     arr.pop();
   }
+
   return true;
 }
 
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
+// function reverseList(head) {
+//   if (head === null || head.next === null) return head;
+//   const res = reverseList(head.next);
+//   head.next.next = head;
+//   head.next = null;
+//   return res;
+// }
+
+function reverseList(head) {
+  let cur = head,
+    tmp,
+    pre = null;
+
+  while (cur !== null) {
+    tmp = cur.next;
+    cur.next = pre;
+    pre = cur;
+    cur = tmp;
+  }
+
+  return pre
 }
 
-let h1 = new ListNode(1);
-let n2 = new ListNode(2);
-let n3 = new ListNode(2);
-let n4 = new ListNode(1);
+const h1 = require("./ListNode");
 
-h1.next = n2;
-n2.next = n3;
-n3.next = n4;
-
-console.log(isPalindrome(h1));
+console.log(reverseList(h1));
