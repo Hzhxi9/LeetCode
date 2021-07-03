@@ -1,5 +1,3 @@
-const arr = [10, 50, 30, 90, 40, 80, 70, 50];
-/**1 */
 function bubbleSort(arr) {
   const len = arr.length;
   for (let i = 0; i < len; i++) {
@@ -9,25 +7,25 @@ function bubbleSort(arr) {
   }
   return arr;
 }
-console.log(bubbleSort(arr));
 
-/**2 */
+console.log(bubbleSort([20, 10, 30, 50, 40, 50, 60]));
+
 function quickSort(arr) {
   if (arr.length < 1) return arr;
-  const m = ~~(arr.length >> 1),
-    left = [],
+  const m = ~~(arr.length >> 1);
+
+  let left = [],
     right = [],
     target = arr.splice(m, 1);
 
   for (let i = 0, len = arr.length; i < len; i++) {
-    const item = arr[i];
-    item < target ? left.push(item) : right.push(item);
+    const data = arr[i];
+    data < target ? left.push(data) : right.push(data);
   }
   return [...quickSort(left), ...target, ...quickSort(right)];
 }
-console.log(quickSort(arr));
+console.log(quickSort([20, 10, 30, 50, 40, 50, 60]));
 
-/**3 */
 function selectSort(arr) {
   const len = arr.length;
   for (let i = 0; i < len; i++) {
@@ -35,13 +33,12 @@ function selectSort(arr) {
     for (let j = i + 1; j < len; j++) {
       if (arr[min] > arr[j]) min = j;
     }
-    if (min !== i) [arr[min], arr[i]] = [arr[i], arr[min]];
+    if (min !== i) [arr[i], arr[min]] = [arr[min], arr[i]];
   }
   return arr;
 }
-console.log(selectSort(arr));
+console.log(selectSort([20, 10, 30, 50, 40, 50, 60]));
 
-/**4 */
 function insertSort(arr) {
   const len = arr.length;
   for (let i = 1; i < len; i++) {
@@ -52,60 +49,46 @@ function insertSort(arr) {
       } else {
         break;
       }
-      arr[i] = arr[target];
     }
+    arr[i] = arr[target];
   }
   return arr;
 }
-console.log(insertSort(arr));
+console.log(insertSort([20, 10, 30, 50, 40, 50, 60]));
 
-/**5 */
-function merge(arr, l, r, temp) {
+function merge(arr, l, r, tmp) {
   const m = ~~((l + r) >> 1);
+
   let left = l,
     right = m + 1,
     k = 0;
 
   while (left <= m && right <= r) {
-    if (arr[left] < arr[right]) temp[k++] = arr[left++];
-    else temp[k++] = arr[right++];
+    if (arr[left] < arr[right]) tmp[k++] = arr[left++];
+    else tmp[k++] = arr[right++];
   }
 
-  while (left <= m) temp[k++] = arr[left++];
-  while (right <= r) temp[k++] = arr[right++];
+  while (left <= m) tmp[k++] = arr[left++];
+  while (right <= r) tmp[k++] = arr[right++];
 
   k = 0;
-
-  for (let i = l; i <= r; i++) arr[i] = temp[k++];
+  for (let i = l; i <= r; i++) arr[i] = tmp[k++];
 }
 
-function mergeSort(arr, l, r, temp) {
+function mergeSort(arr, l, r, tmp) {
   if (l < r) {
-    const m = ~~((l + r) >> 1);
-    mergeSort(arr, l, m, temp);
-    mergeSort(arr, m + 1, r, temp);
-    merge(arr, l, r, temp);
-    return arr;
-  }
-}
-console.log(mergeSort(arr, 0, arr.length - 1, []));
-
-/**6 */
-function shellSort(arr) {
-  const len = arr.length;
-  for (let gap = ~~(len >> 1); gap > 0; gap = ~~(gap >> 1)) {
-    for (let i = 0; i < len; i++) {
-      let j = i,
-        current = arr[i];
-
-      while (j - gap > 0 && arr[j - gap] > current) {
-        arr[j] = arr[j - gap];
-        j = j - gap;
-      }
-
-      arr[i] = current;
-    }
+    const m = ~~((r + l) >> 1);
+    mergeSort(arr, l, m, tmp);
+    mergeSort(arr, m + 1, r, tmp);
+    merge(arr, l, r, tmp);
   }
   return arr;
 }
-console.log(shellSort(arr, 0, arr.length - 1, []));
+console.log(
+  mergeSort(
+    [20, 10, 30, 50, 40, 50, 60],
+    0,
+    [20, 10, 30, 50, 40, 50, 60].length - 1,
+    []
+  )
+);

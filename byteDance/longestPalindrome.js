@@ -1,25 +1,27 @@
 /**最长回文子串【双指针】 */
 
 function longestPalindrome(str) {
+  if (str.length === 0) return "";
   if (str.length === 1) return str;
 
-  let maxStr = "",
-    maxRes = 0;
+  let maxRos = 1,
+    maxStr = "";
 
   for (let i = 0, len = str.length; i < len; i++) {
     const str1 = palindrome(str, i, i);
     const str2 = palindrome(str, i, i + 1);
 
-    if (str1.length > maxRes) {
+    if (str1.length > maxRos) {
       maxStr = str1;
-      maxRes = str1.length;
+      maxRos = str1.length;
     }
 
-    if (str2.length > maxRes) {
+    if (str2.length > maxRos) {
       maxStr = str2;
-      maxRes = str2.length;
+      maxRos = str2.length;
     }
   }
+
   return maxStr;
 }
 
