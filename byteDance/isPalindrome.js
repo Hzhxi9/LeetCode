@@ -5,19 +5,19 @@ function ListNode(val) {
 }
 
 /**数组 */
-function isPalindrome(head) {
-  let arr = [],
-    cur = head;
+// function isPalindrome(head) {
+//   let arr = [],
+//     cur = head;
 
-  while (cur !== null) {
-    arr.push(cur.val);
-    cur = cur.next;
-  }
-  for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
-    if (arr[i] !== arr[j]) return false;
-  }
-  return true;
-}
+//   while (cur !== null) {
+//     arr.push(cur.val);
+//     cur = cur.next;
+//   }
+//   for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
+//     if (arr[i] !== arr[j]) return false;
+//   }
+//   return true;
+// }
 
 /**栈 */
 // function isPalindrome(head) {
