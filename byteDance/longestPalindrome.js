@@ -4,7 +4,7 @@ function longestPalindrome(str) {
   if (str.length === 0) return "";
   if (str.length === 1) return str;
 
-  let maxRos = 1,
+  let maxRos = 0,
     maxStr = "";
 
   for (let i = 0, len = str.length; i < len; i++) {
